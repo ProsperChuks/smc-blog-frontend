@@ -26,7 +26,7 @@ export default {
     getAPI.get('/posts?category='+'ec',)
     .then(response => {
       this.loading= false
-      console.log('post API has received data')
+     ""
       this.blogPosts = response.data
     })
     .catch(err => {

@@ -25,33 +25,37 @@ export default {
   },
   methods: {
     fetchTypedPost(slug) {
-      getAPI.get('/posts?category='+slug)
-      .then(response => {
-        this.typedPosts = response.data
-      })
-      .catch(err => {
-        console.log(err)
-      })
+      getAPI
+        .get("/posts?category=" + slug)
+        .then((response) => {
+          this.typedPosts = response.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   created() {
-    this.fetchTypedPost('bc')
-    getAPI.get('/posts')
-    .then(response => {
-      console.log('posts API has received data')
-      this.blogPosts = response.data
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    this.fetchTypedPost("bc");
+    getAPI
+      .get("/posts")
+      .then((response) => {
+        console.log("posts API has received data");
+        this.blogPosts = response.data;
+        console.log(this.blogPosts);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-    getAPI.get('/posts'+'?editor=True')
-    .then(response => {
-      this.editorPosts = response.data
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    getAPI
+      .get("/posts" + "?editor=True")
+      .then((response) => {
+        this.editorPosts = response.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
   components: {
     Placeholder,
@@ -70,26 +74,36 @@ export default {
       <PriceMarqueeWidget class="dark:text-black" />
     </div>
   </header>
-  <main class="lg:px-48" :class="{ 'overflow-hidden max-h-[100vh]': isMobile }">
-    <section class="py-4 w-full md:grid md:grid-cols-[1fr_180px] gap-5">
-      <div
-        class="h-[70vh] text-white flex flex-col max-w-4xl mx-auto bg-[url(https://images.unsplash.com/photo-1677019617752-7316ce58b864?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80)] justify-end"
-      >
-        <div class="p-12">
-          <h1 class="font-bold text-2xl font-serifFamily capitalize">
-            {{ blogPosts[0].title }}
-          </h1>
-          <p class="flex items-center gap-2 text-[#919094] text-[10px]">
-            by {{ blogPosts[0].author }}
-          </p>
+  <main
+    class="max-w-3xl mx-auto"
+    :class="{ 'overflow-hidden max-h-[100vh]': isMobile }"
+  >
+    <section class="py-4 w-full md:grid md:grid-cols-[1fr_180px] gap-10">
+      <router-link :to="`/post/${blogPosts[0].slug}`">
+        <div class="flex flex-col mx-auto justify-end">
+          <div class="">
+            <img
+              :src="blogPosts[0].mainImage"
+              class="object-contain w-full z-0"
+              alt=""
+            />
+          </div>
+          <div class="">
+            <h1 class="font-bold text-2xl font-serifFamily capitalize">
+              {{ blogPosts[0].title }}
+            </h1>
+            <p class="flex items-center gap-2 text-[#919094] text-[10px]">
+              by {{ blogPosts[0].author }}
+            </p>
+          </div>
+          <div class="flex space-x-2 hidden justify-center p-3">
+            <p class="h-2 w-2 rounded-full bg-[#668AFF]"></p>
+            <p class="h-2 w-2 bg-[#FEFBFF] rounded-full"></p>
+            <p class="h-2 w-2 bg-[#FEFBFF] rounded-full"></p>
+            <p class="h-2 w-2 bg-[#FEFBFF] rounded-full"></p>
+          </div>
         </div>
-        <div class="flex space-x-2 justify-center p-3">
-          <p class="h-2 w-2 rounded-full bg-[#668AFF]"></p>
-          <p class="h-2 w-2 bg-[#FEFBFF] rounded-full"></p>
-          <p class="h-2 w-2 bg-[#FEFBFF] rounded-full"></p>
-          <p class="h-2 w-2 bg-[#FEFBFF] rounded-full"></p>
-        </div>
-      </div>
+      </router-link>
       <div class="hidden lg:block">
         <BlogCard v-if="editorPosts[0]" :post="editorPosts[0]" md-shrink />
         <BlogCard v-if="editorPosts[1]" :post="editorPosts[1]" md-shrink />

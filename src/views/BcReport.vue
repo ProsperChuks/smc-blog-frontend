@@ -26,7 +26,7 @@
       getAPI.get('/posts?category='+'bc',)
       .then(response => {
         this.loading= false
-        console.log('post API has received data')
+       ""
         this.blogPosts = response.data
       })
       .catch(err => {

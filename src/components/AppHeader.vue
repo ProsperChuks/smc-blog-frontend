@@ -37,7 +37,7 @@ export default {
 </script>
 <template>
   <div
-    class="flex flex-col sticky top-0 z-50"
+    class="flex flex-col sticky top-0 z-50 shadow"
     :class="{
       'h-screen': isMenuOpen,
     }"

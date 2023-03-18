@@ -27,11 +27,11 @@ export default {
     getAPI.get('/posts/'+this.thsl)
     .then(response => {
       this.loading = false
-      console.log('posts API has received data')
       this.posts = response.data
       this.text = this.posts.body
       this.cat = this.posts.categories
-
+      console.log(this.posts)
+      
       getAPI.get('/categories/'+this.cat)
       .then(response => {
         this.cat = response.data.cat_title
@@ -94,9 +94,6 @@ export default {
           </svg>
         </div>
 
-        <div v-if="error" class="error">
-          {{ error }}
-        </div>
 
         <div v-if="posts" class="p-5">
           <h1
@@ -122,20 +119,20 @@ export default {
                 by {{ auth_name }}
               </h1>
               <div class="flex items-center gap-2">
-                <span>Jan 5th</span>
+                <span>{{posts.publishedAt}}</span>
                 <p class="h-1 w-1 bg-current rounded-full"></p>
                 <!-- <span>{{ posts.timeToRead || "15 mins read" }}</span> -->
               </div>
             </div>
           </div>
 
-          <img
-            v-if="posts.mainImage"
-            v-for="post in posts.mainImage"
-            :key="post.id"
-            class="h-[15rem] w-full object-contain my-4"
-            :src="post.mainImage"
-          />
+          <div class="w-full">
+            <img
+              v-if="posts.mainImage"
+              class=" object-cover my-4"
+              :src="posts.mainImage"
+            />
+          </div>
 
           <div class="md:px-12">
             <div
@@ -149,16 +146,7 @@ export default {
                 <p class="font-bold text-xl uppercase">Key Points</p>
                 <h1>{{ posts.summary }}</h1>
               </div>
-              <div class="text-sm mt-12">
-                <span class="mr-4">
-                  <BaseIcon name="heart" />
-                  200
-                </span>
-                <span>
-                  <BaseIcon name="chat" />
-                  15
-                </span>
-              </div>
+             
             </div>
           </div>
         </div>

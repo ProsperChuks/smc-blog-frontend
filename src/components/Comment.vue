@@ -10,9 +10,8 @@
     created() {
       getAPI.get('/comment?post='+this.slg,)
       .then(response => {
-        console.log('post API has received data')
+       ""
         this.comment = response.data
-        console.log(this.comment)
       })
       .catch(err => {
         console.log(err)
@@ -35,7 +34,7 @@
 
 <template>
     <div style="display: block; margin: 15px;" v-if="!comment || !comment.length">
-        <center><b>Be the first to comment.</b></center>
+        <p class="text-center font-bold">Be the first to comment.</p>
     </div>
     <div class="comment" v-else>
         <b>{{ comment.length }} Comments</b>
